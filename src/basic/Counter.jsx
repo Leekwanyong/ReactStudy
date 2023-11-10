@@ -28,6 +28,7 @@ const Counter = ({ total, onAdd }) => {
             // 이런 식으로 콜백함수로 받아서 처리를 한다면 이전 상태와 현재의 상태를 비교해서 값을 증가 시키기
             // 떄문에 원하는 대로 숫자를 증가 시킬 수 있다.
             setCounter((prev) => prev + 1)
+            onAdd()
           }}
         >
           Add +
