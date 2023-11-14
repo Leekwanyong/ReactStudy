@@ -1,15 +1,31 @@
 import './App.css'
-import AppContext from './context/AppContext'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Videos from './pages/Videos'
+import NotFound from './pages/NotFound'
+import Root from './pages/Root'
+import Home from './pages/Home'
+import VideosDetail from './pages/VideosDetail'
 
 function App() {
   //   이런 식으로 변수를 만들어서 사용이 가능하다.
-
-  const click = () => {
-    alert('클릭됨')
-  }
+  // 라우터 역할을 담당 새로고침을 하지 않더라도 새로운 컴포너트를 렌더링 해주는 역할
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root />,
+      errorElement: <NotFound />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: '/videos', element: <Videos /> },
+        { path: '/videos/:videoId', element: <VideosDetail /> },
+        {},
+      ],
+    },
+  ])
+  // router 경로를 매칭
   return (
-    <div className='App'>
-      <AppContext />
+    <RouterProvider router={router}>
+      {/*<AppContext />*/}
       {/*<AppWrap />*/}
       {/*<AppForm />*/}
       {/*<AppMentors />*/}
@@ -59,7 +75,7 @@ function App() {
       {/*  name={'Bob Yu'}*/}
       {/*  title={'프론트엔드 개발자'}*/}
       {/*/>*/}
-    </div>
+    </RouterProvider>
   )
 }
 
