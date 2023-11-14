@@ -1,30 +1,39 @@
+// 개발 도구를 사용하여 쿼리를 관찰할 수 있지만 변형은 관찰할 수 없습니다 .
+// 다시 로드할 때마다 localStorage에 저장되고 기억
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Videos from './pages/Videos'
-import NotFound from './pages/NotFound'
-import Root from './pages/Root'
-import Home from './pages/Home'
-import VideosDetail from './pages/VideosDetail'
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import AppProducts from './basic/AppProducts'
 
 function App() {
   //   이런 식으로 변수를 만들어서 사용이 가능하다.
   // 라우터 역할을 담당 새로고침을 하지 않더라도 새로운 컴포너트를 렌더링 해주는 역할
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Root />,
-      errorElement: <NotFound />,
-      children: [
-        { index: true, element: <Home /> },
-        { path: '/videos', element: <Videos /> },
-        { path: '/videos/:videoId', element: <VideosDetail /> },
-        {},
-      ],
-    },
-  ])
+  // const router = createBrowserRouter([
+  //   {
+  //     path: '/',
+  //     element: <Root />,
+  //     errorElement: <NotFound />,
+  //     children: [
+  //       { index: true, element: <Home /> },
+  //       { path: '/videos', element: <Videos /> },
+  //       { path: '/videos/:videoId', element: <VideosDetail /> },
+  //       {},
+  //     ],
+  //   },
+  // ])
   // router 경로를 매칭
+
+  const queryClient = new QueryClient()
+
+  // ReactQueryDevtools 페이지의 루트에 가까울수록 더 잘 작동
+
   return (
-    <RouterProvider router={router}>
+    <QueryClientProvider client={queryClient}>
+      {/*<ReactQueryDevtools initialIsOpen={true} />*/}
+      <ReactQueryDevtools initialIsOpen={true} />
+
+      {/*React-Query*/}
+      <AppProducts />
       {/*<AppContext />*/}
       {/*<AppWrap />*/}
       {/*<AppForm />*/}
@@ -75,7 +84,7 @@ function App() {
       {/*  name={'Bob Yu'}*/}
       {/*  title={'프론트엔드 개발자'}*/}
       {/*/>*/}
-    </RouterProvider>
+    </QueryClientProvider>
   )
 }
 
